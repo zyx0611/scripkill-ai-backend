@@ -88,7 +88,7 @@ async def proxy_to_subservice_a(request: Request):
 
 @app.post("/get_chat_list", responses=SuccessResponse[Any])
 async def getChatList():
-
+    return Response()
 
 if __name__ == "__main__":
     uvicorn.run("httpxDemo:app", host="0.0.0.0", port=3334, reload=True)

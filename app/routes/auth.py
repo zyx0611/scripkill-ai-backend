@@ -28,6 +28,12 @@ async def login(user_create: UserCreate, response: Response):
         else:
             raise HTTPException(status_code=500, detail="登陆接口请求失败")
 
+    def createdCharactersAndChat(token: json):
+        charactersBody = {
+
+        }
+        res = requests.post("http://localhost:8000/api/characters/create", json=charactersBody, headers=token)
+
     """注册用户"""
     # 检查用户是否已存在
     existing_user = await User.find_one(User.tg_id == user_create.tg_id)
@@ -43,12 +49,13 @@ async def login(user_create: UserCreate, response: Response):
     # 创建新用户
     user = User(**user_create.model_dump())
     user.gold_coins = 20
+    defaultUserToken = getCookie()
     new_user = requests.post('http://localhost:8000/api/users/create', json={
         'handle': user_create.username,
         'name': user_create.username,
         'password': '12345678'
     }, headers={
-        "cookie": getCookie()
+        "cookie": defaultUserToken
     })
     try:
         existing_user = await user.insert()
